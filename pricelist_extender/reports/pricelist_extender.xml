@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <template id="report_pricelist_page_extend_categories_variable_setter" inherit_id="product.report_pricelist_page">
+            <xpath expr="//tbody" position="before">
+                <t t-set="old_categ" t-value="'1'" />
+            </xpath>
+        </template>
+    </data>
+
+    <data>
+        <template id="report_pricelist_page_add_headline" inherit_id="product.report_pricelist_page">
+            <xpath expr="//table/thead/tr" position="inside">
+                <th t-if="show_recommended_prices" class="text-right">Recommended Sales Price</th>
+            </xpath>
+        </template>
+    </data>
+
+    <data>
+        <!-- replace headline -->
+        <template id="report_pricelist_page_extend_categories_remove_non_fitting_headline" inherit_id="product.report_pricelist_page">
+            <xpath expr="//*[text() = 'Sales Order Line Quantities (price per unit)']" position="replace">
+                <p t-if="not show_recommended_prices">Sales Order Line Quantities (price per unit)</p>
+            </xpath>
+        </template>
+    </data>
+
+    <data>
+        <template id="report_pricelist_page_extend_categories_add_recommended_sales_price" inherit_id="product.report_pricelist_page">
+            <xpath expr="//tbody/t/tr/t[last()]" position="after">
+                <td t-if="show_recommended_prices" class="text-right">
+                    <t t-esc="product['list_price']" t-options='{"widget": "monetary", "display_currency": pricelist.currency_id}' />
+                </td>
+            </xpath>
+        </template>
+    </data>
+
+    <data>
+        <!-- add the recommended price to the product template -->
+        <template id="report_pricelist_page_extend_categories_add_recommended_sales_price" inherit_id="product.report_pricelist_page">
+            <xpath expr="//tbody/t/tr/t[last()]" position="after">
+                <td t-if="show_recommended_prices" class="text-right">
+                    <t t-esc="product['list_price']" t-options='{"widget": "monetary", "display_currency": pricelist.currency_id}' />
+                </td>
+            </xpath>
+        </template>
+    </data>
+
+    <data>
+        <!-- add the recommended price to the variantes -->
+        <template id="report_pricelist_page_extend_categories_add_recommended_sales_price_variantes" inherit_id="product.report_pricelist_page">
+            <xpath expr="//tbody/t/t/tr/t[last()]" position="after">
+                <td t-if="show_recommended_prices" class="text-right">
+                    <t t-esc="variant['lst_price']" t-options='{"widget": "monetary", "display_currency": pricelist.currency_id}' />
+                </td>
+            </xpath>
+        </template>
+    </data>
+
+    <data>
+        <template id="report_pricelist_page_extend_categories" inherit_id="product.report_pricelist_page">
+            <xpath expr="//tbody/t/tr" position="before">
+                <tr t-if="show_categories">
+                    <td>
+                        <div t-if="old_categ != product['categ_id']">
+                            <br />
+                            <br />
+                            <h1>
+                                <t t-esc="product['categ_id']" />
+                            </h1>
+                            <br />
+                        </div>
+                    </td>
+                </tr>
+                <t t-set="old_categ" t-value="product['categ_id']" />
+            </xpath>
+        </template>
+    </data>
+</odoo>

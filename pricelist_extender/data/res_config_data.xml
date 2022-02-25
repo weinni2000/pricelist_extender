@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="my_config_settings" model="res.config.settings">
+        <field name="show_categories" eval="True" />
+        <field name="show_recommended_prices" eval="True" />
+    </record>
+    <function model="res.config.settings" name="execute">
+        <value model="res.config.settings" search="[('id', '=', ref('my_config_settings'))]" />
+    </function>
+</odoo>
