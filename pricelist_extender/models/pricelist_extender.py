@@ -47,7 +47,9 @@ class ProductPricelistReportExtender(models.AbstractModel):
             "lst_price": getattr(product, 'lst_price', None) or product.list_price,
             'price': dict.fromkeys(quantities, 0.0),
             'uom': product.uom_id.name,
-            'categ_id': product.categ_id.name or "no Cat"
+            'categ_id': product.categ_id.name or "no Cat",
+            # product.categ_id.season_id.text_for_pricelist_computed
+            "text_for_pricelist_computed": product.categ_id.season_id.text_for_pricelist_computed
         }
         # if "Customizable Desk" in data["name"]:
         #    print(data)

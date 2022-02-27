@@ -57,7 +57,14 @@
             </xpath>
         </template>
     </data>
-
+    <data>
+        <template id="report_pricelist_page_extend_categories_add_recommended_sales_price_variantes_table_displace" inherit_id="product.report_pricelist_page">
+            <xpath expr="//table" position="attributes">
+                <!-- #replace the table class to avoid the lines in some browsers (chrome)-->
+                <attribute name="class">table-sm nikclass</attribute>
+            </xpath>
+        </template>
+    </data>
     <data>
         <template id="report_pricelist_page_extend_categories" inherit_id="product.report_pricelist_page">
             <xpath expr="//tbody/t/tr" position="before">
@@ -69,7 +76,15 @@
                             <h1>
                                 <t t-esc="product['categ_id']" />
                             </h1>
-                            <br />
+
+                            <t>
+                                <p1 t-if="product['text_for_pricelist_computed']">
+                                    <t t-esc="product['text_for_pricelist_computed']" />
+                                </p1>
+                                <br />
+                                <br />
+                            </t>
+
                         </div>
                     </td>
                 </tr>
